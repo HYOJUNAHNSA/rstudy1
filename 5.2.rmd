@@ -1,0 +1,54 @@
+---
+title: "5.2 Bootstrap"
+author: "hyojunahn"
+date: "2017?? 11?? 29??"
+output: html_document
+---
+
+#Bootstrap
+
+![](C:\Users\loveactualry\Pictures\bootsrtrap.png)
+
+##부트스트랩(Bootstrap)
+
+### 모집단에 대한 어떤 가정도 없이 표본에서 표본 데이터를 반복적으로 추출한다. 복원 추출법을 사용하여 새로운 여러 표본을 만들어낸다. 새로운 표본은 원래 데이터 겟에 있는 값으로만 구성.
+
+### 동일한 값이 여러개 포함될 수 있다. 이 방법을 통해 일반적인 분포 뿐만 아니라 새로운 통계 분포도 살펴볼 수 있다. 모집단에 대한 어떤 것도 가정하지 않기 때문에 통계 분석과 신뢰 구간을 구할 수 있다.
+
+### 동일한 데이터를 사용해 평균을 계산하고 주어진 데이터에 대한 분산을 구한다. 평균의 표준오차나 평균 차이의 표준 오차를 구할 수 있다. 
+
+
+
+
+> 평균의 신뢰구간을 알고 싶거나 수집한 데이터의 확률 변수의 정확한 분포를 모르는 경우에는 붓스트랩을 사용한다. 측정된 nt
+> 개의 데이터 중에서 중복을 허용하여 m개를 뽑고 그들의 평균 구하기를 여러번 반복한다. sample mean을 통해 신뢰 구간을 구할 수 있다.
+
+
+### 책
+# 방법 
+1. 모집단으로 부터 sample n개를 뽑는다. (데이터 개수가 n개) 
+2. Bootstrap을 m번 했다. (보통 1,000번 정도)
+-. n개의 sample에서 복원추출 n개를, m번 한다. 
+   즉, Bootstrap을 한번 할 때, sample의 개수는 n개이다.
+-. 복원추출된 m개의 그룹 각각에서, 추정하고자 하는 것을 추정한다. 
+3. 복원추출된 m개의 그룹 각각에서, 추정한 추정치들의 평균값을 구한다. 
+4. 이 평균값이 Boostrap 추정값이다.
+
+
+
+##책
+
+
+
+![](C:\Users\loveactualry\Pictures\5.9.png)
+
+
+####It is natural to wish to quantify the accuracy of our estimate of ??.
+
+###Rather than repeatedly obtaining independent data sets from the population, we instead obtain distinct data sets by repeatedly sampling observations from the original data set.
+
+![](C:\Users\loveactualry\Pictures\5.10.png)
+
+
+![](C:\Users\loveactualry\Pictures\5.11.png)
+
