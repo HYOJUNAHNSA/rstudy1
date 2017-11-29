@@ -69,6 +69,8 @@ mu.hat <- mean(medv)
 mu.hat
 ```
 
+
+
 ##5.9.b
 ```{r}
 se.hat <- sd(medv) / sqrt(dim(Boston)[1])
@@ -85,10 +87,19 @@ boot.fn <- function(data, index) {
 boot(medv, boot.fn, 1000)
 ```
 
+b의 결과와 비슷함을 볼 수 있다. 
+
 ##5.9.d
 ```{r}
 t.test(medv)
 ```
+
+```{r}
+CI.mu.hat <- c(22.53 - 2 * 0.4119, 22.53 + 2 * 0.4119)
+CI.mu.hat
+```
+
+신뢰구간의 범위와 t-test로 구한 것이 비슷하다.
 
 ##5.9.e
 ```{r}
@@ -105,6 +116,8 @@ boot.fn <- function(data, index) {
 boot(medv, boot.fn, 1000)
 ```
 
+e와 같은 결과이고 sd는 0.3874이다.
+
 ##5.9.g
 ```{r}
 percent.hat <- quantile(medv, c(0.1))
@@ -119,3 +132,8 @@ boot.fn <- function(data, index) {
 }
 boot(medv, boot.fn, 1000)
 ```
+
+
+
+12.75로 같은 결과를 보여준다.
+
