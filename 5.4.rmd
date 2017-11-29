@@ -1,0 +1,121 @@
+---
+title: "exercise 5"
+author: "hyojunahn"
+date: "2017년 11월 29일"
+output: html_document
+---
+
+##5.4
+##5.4.a
+
+### We now review k-fold cross-validation.
+### (a) Explain how k-fold cross-validation is implemented.
+
+
+>1. 무작위로 데이터를 k개의 fold (겹, ex> 여러겹) 로 나눕니다. 즉 100개를 k 개의 집단으로 무작위로 나눕니다.
+2. 각 집단 중 하나의 집단이 test set이 되고 나머지는 학습을 위한 데이터로 진행합니다.
+3. 학습한 모델을 기준으로 test set으로 평가한 error를 기록합니다.
+4. 이것을 돌아가면서 k번 실시합니다.
+5. 기록한 error를 평균을 내고 그것을 cross-validation error라고 칭하고, 모델을 평가하는 하나의 지표로 활용합니다
+
+
+![](C:\Users\loveactualry\Pictures\5.4.1.png)
+
+##5.4.b What are the advantages and disadvantages of k-fold crossvalidation relative to:i. The validation set approach? ii. LOOCV?
+
+###1. The validation set Approach
+
+> 이방법은 50%의 data 는 검증을 위해 남기고, 다른 50%는 모델 학습을 위해서 남겨놓습니다. 
+모델 학습후 모델 검증은 validation data를 가지고 합니다. 
+(보통은 50:50도 많이 하지만 70:30 도 하는경우도 있고 
+둘다 the validation set approach라고 이야기 할수 있습니다.)
+
+####단점 
+    1. 일부의 데이터만 학습을 하기 때문에 모델이 일부 데이터를 설명하기에는 부족하지 않겠지만 경우에 따라 전체 데이터를 설명하는데는 부족한 모델이 될수 있다.
+
+    이것을 통계적 용어로 "bias 가 높다"고 할수 있는데 , 경우에 따라 일부 데이터로만 학습하였기 때문에 모델이 bias가 높은 경우가 될 가능성이 높다.
+    
+    즉 한국인의 한달 소득과 소비 값의 관계식을 파악하고자 모델을 만들었는데, 하필 학습시킨 데이터는 30대 이상이고, 검증하는 데이터는 30대 이하일 경우, 30대 이상의 데이터로 만 학습하게 되면 전체 소득과 소비 값에 대비해서  편중된 모델이 만들어질수 있다. 즉 편중된 모델이라는 것은 높은 bias 나타난다라고 이야기 할수 있고,이것은 전체를 설명하는데 부적절하다.
+
+###2. Leave one out cross validation (LOOCV)
+
+> 이 방법은 하나의 데이터 포인트만 남기고 나머지 모든 데이터로 학습을 시켜 모델을 만드는 것입니다. 
+그리고 다시 다른 하나의 데이터 포인트만 남기고 나머지 모든 데이터로 학습을 시킨 후 여러번 반복해서 남겨둔 포인트들로 검증을 하는 방법입니다.
+ 
+
+    장점 : 거의 모든 데이터로 모델링해서 bias가 적다 
+    단점 : 1. n번 반복시행할 경우 n배 만큼 실행시간이 길어진다.
+          2. 이 방법은 모델검증에서 여러가지 다양한 결과가(즉, 높은 분산이) 발생 시킬수 있습니다.
+            다시 말해서 검증을 위해서 제외시킨 하나의 data point가 예측의 큰 영향을 미치기 때문에,
+            그 검증 데이터가 outlier였다면 모델은 최적의 모델이었으나, 검증 결과는 최악의 모델이 될수도 있고,
+            모델은 최악의 모델이었으나 검증 결과는 최적의 모델로 검증될수도 있습니다.
+
+
+출처: http://daryan.tistory.com/21 [Ryan의 데이터 과학 블로그]
+
+
+
+
+
+
+##5.9
+##5.9.a
+
+```{r }
+library(MASS)
+library(boot)
+attach(Boston)
+mu.hat <- mean(medv)
+mu.hat
+```
+
+##5.9.b
+```{r}
+se.hat <- sd(medv) / sqrt(dim(Boston)[1])
+se.hat
+```
+
+##5.9.c
+```{r}
+set.seed(1)
+boot.fn <- function(data, index) {
+    mu <- mean(data[index])
+    return (mu)
+}
+boot(medv, boot.fn, 1000)
+```
+
+##5.9.d
+```{r}
+t.test(medv)
+```
+
+##5.9.e
+```{r}
+med.hat <- median(medv)
+med.hat
+```
+
+##5.9.f
+```{r}
+boot.fn <- function(data, index) {
+    mu <- median(data[index])
+    return (mu)
+}
+boot(medv, boot.fn, 1000)
+```
+
+##5.9.g
+```{r}
+percent.hat <- quantile(medv, c(0.1))
+percent.hat
+```
+
+##5.9.h
+```{r}
+boot.fn <- function(data, index) {
+    mu <- quantile(data[index], c(0.1))
+    return (mu)
+}
+boot(medv, boot.fn, 1000)
+```
